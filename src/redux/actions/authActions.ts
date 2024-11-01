@@ -1,21 +1,21 @@
-import { userData, LOGIN, LOGOUT, UPDATE_USER_DATA, AuthActionTypes } from '../../utils/types';
+import { userData } from "../../utils/types";
 
-export const login = (token: string, userData: userData, rememberMe: boolean): AuthActionTypes => {
-    return {
-        type: LOGIN,
-        payload: { token, userData, rememberMe },
-    };
+export const login = (token: string, rememberMe: boolean) => {
+  return {
+    type: "LOGIN",
+    payload: { token, rememberMe },
+  };
 };
 
-export const logout = (): AuthActionTypes => {
-    return {
-        type: LOGOUT,
-    };
+export const logout = () => {
+  return {
+    type: "LOGOUT",
+  };
 };
 
-export const updateUserData = (userData: userData): AuthActionTypes => {
-    return {
-        type: UPDATE_USER_DATA,
-        payload: userData,
-    };
+export const updateUserData = (userData: userData) => {
+  return {
+    type: "UPDATE_USER_DATA",
+    payload: userData,
+  };
 };

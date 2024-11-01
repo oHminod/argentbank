@@ -1,15 +1,21 @@
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserData } from "../../../redux/actions/authActions";
+import { useState } from "react";
+import { RootState } from "../../../redux/store/store";
+import { updateUser } from "../../../utils/data-access-layer";
 import { userData } from "../../../utils/types";
 
 const EditUserName = ({
-  userData,
   setIsEditName,
-  setUserData,
 }: {
-  userData: userData;
   setIsEditName: React.Dispatch<React.SetStateAction<boolean>>;
-  setUserData: React.Dispatch<React.SetStateAction<userData | null>>;
 }) => {
-  const { firstName, lastName } = userData;
+  const [error, setError] = useState<null | Response | string>(null);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const { firstName, lastName } = useSelector(
+    (state: RootState) => state.auth.userData
+  );
+  const dispatch = useDispatch();
 
   const handleCancel = () => {
     setIsEditName(false);
@@ -17,6 +23,7 @@ const EditUserName = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const firstNameInput = (
       e.currentTarget.elements.namedItem("firstName") as HTMLInputElement
     ).value;
@@ -25,21 +32,19 @@ const EditUserName = ({
     ).value;
     const newFirstName = firstNameInput || firstName;
     const newLastName = lastNameInput || lastName;
-    console.log(newFirstName, newLastName);
-    setUserData({ firstName: newFirstName, lastName: newLastName });
-    const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+
+    if (!token) return setError("Token not found");
+    const response = await updateUser(token, newFirstName, newLastName);
+
+    if (typeof response === "string" || !response.ok) return setError(response);
+
+    dispatch(
+      updateUserData({
         firstName: newFirstName,
         lastName: newLastName,
-      }),
-    });
-    await response.json();
+      } as userData)
+    );
+
     setIsEditName(false);
   };
 
@@ -50,25 +55,36 @@ const EditUserName = ({
         <br />
       </h1>
       <form className="edit-name" onSubmit={handleSubmit}>
-        <div className="left-wrapper">
+        <div className="edit-wrapper">
           <div className="input-wrapper">
-            <label htmlFor="firstName" className="sr-only">
+            <label htmlFor="firstName" className="only-sr">
               firstName
             </label>
             <input type="text" id="firstName" placeholder={firstName} />
           </div>
-          <button type="submit">Save</button>
-        </div>
-        <div className="right-wrapper">
           <div className="input-wrapper">
-            <label htmlFor="lastName" className="sr-only">
+            <label htmlFor="lastName" className="only-sr">
               lastName
             </label>
             <input type="lastName" id="lastName" placeholder={lastName} />
           </div>
-          <button onClick={handleCancel}>Cancel</button>
+        </div>
+        <div className="edit-wrapper">
+          <button type="submit">Save</button>
+          <button onClick={handleCancel} type="button">
+            Cancel
+          </button>
         </div>
       </form>
+      {typeof error === "string"
+        ? error && <p className="error">{error} </p>
+        : error && (
+            <p className="error">
+              {(error.status || 520) +
+                " - " +
+                (error.statusText || "Unknown error")}
+            </p>
+          )}
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "../pages/errorPage";
-import HomePage from "../pages/homePage/homePage";
-import Layout from "../components/layout";
-import SigninPage from "../pages/signinPage/signinPage";
 import UserPage from "../pages/userPage/userPage";
+import SigninPage from "../pages/signinPage/signinPage";
+import HomePage from "../pages/homePage/homePage";
+import Layout from "../components/layout/layout";
 
 const Router = () => {
   const routes = createBrowserRouter([
@@ -22,7 +22,11 @@ const Router = () => {
         { path: "profile", element: <UserPage /> },
         {
           path: "*",
-          element: <ErrorPage />,
+          element: (
+            <ErrorPage
+              error={{ status: 404, message: "That page doesn't exist..." }}
+            />
+          ),
         },
       ],
     },

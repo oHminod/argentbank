@@ -18,8 +18,6 @@ body {
   flex-direction: column;
   flex: 1;
 }
- {
-}
 
 main {
   flex: 1;
@@ -31,16 +29,26 @@ main {
 
 .sr-only {
   border: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+  clip: rect(1px, 1px, 1px, 1px) !important;
   -webkit-clip-path: inset(50%) !important;
-  clip-path: inset(50%) !important; /* 2 */
+  clip-path: inset(50%) !important;
   height: 1px !important;
   margin: -1px !important;
   overflow: hidden !important;
   padding: 0 !important;
   position: absolute !important;
   width: 1px !important;
-  white-space: nowrap !important; /* 3 */
+  white-space: nowrap !important;
+  z-index: -1000 !important;
+}
+
+a:hover,
+button:hover,
+input[type="checkbox"]:hover,
+label:hover,
+a img:hover,
+.main-nav .main-nav-logo img.main-nav-logo-image:hover {
+  cursor: pointer;
 }
 
 .main-nav {
@@ -54,12 +62,12 @@ main {
 .main-nav button {
   font-weight: bold;
   color: #2c3e50;
+  cursor: pointer;
 }
 
 .main-nav button {
   background: none;
   border: none;
-  cursor: pointer;
   font-size: 1rem;
 }
 
@@ -169,18 +177,6 @@ main {
   margin-bottom: 0.5rem;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .sign-in-button {
   display: block;
   width: 100%;
@@ -235,6 +231,8 @@ main {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  flex-direction: column;
+  padding: 1rem;
 }
 
 .edit-name button {
@@ -242,39 +240,57 @@ main {
   color: blue;
   border: none;
   padding: 0.4rem;
-  width: 100px;
+  width: 99px;
 }
 
-.left-wrapper {
+.edit-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: end;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
 }
 
-.right-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
+.edit-wrapper .input-wrapper {
+  margin: 0;
 }
-.error {
+
+.center-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.error h1 {
+.center-wrapper h1 {
   color: red;
-  font-size: 4rem;
-  font-weight: bold;
+  font-size: 8rem;
+  font-weight: 900;
   margin: 0;
 }
 
-.error a {
+.center-wrapper a {
   color: #00bc77;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 700;
   margin-top: 3rem;
+}
+
+.error-message {
+  color: grey;
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.error {
+  color: red;
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-style: italic;
+  margin-top: 0;
+  margin-bottom: -1.2rem;
 }
 
 .footer {
