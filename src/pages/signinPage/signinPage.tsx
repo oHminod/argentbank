@@ -22,19 +22,21 @@ const SigninPage = () => {
 
   const handleSignin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const username =
-      (e.currentTarget.elements.namedItem("username") as HTMLInputElement)
-        .value || null;
-    const password =
-      (e.currentTarget.elements.namedItem("password") as HTMLInputElement)
-        .value || null;
+    const username = (
+      e.currentTarget.elements.namedItem("username") as HTMLInputElement
+    ).value;
+    const password = (
+      e.currentTarget.elements.namedItem("password") as HTMLInputElement
+    ).value;
 
     const signinResponse = await signinUser(username, password);
 
     if (typeof signinResponse === "string" || !signinResponse.ok)
       return setError(signinResponse);
 
-    const token = signinResponse.token as string;
+    const token = signinResponse.token;
+    if (!token) return setError("Token not found");
+
     const rememberMe = rememberCheckboxref.current?.checked || false;
     dispatch(login(token, rememberMe));
     navigate("/profile");

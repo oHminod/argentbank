@@ -3,8 +3,8 @@ import { getUserResponse, signinResponse, userData } from "./types";
 const apiURL = "http://localhost:3001/api/v1/user";
 
 export const signinUser = async (
-  email: string | null = "",
-  password: string | null = ""
+  email: string,
+  password: string
 ): Promise<signinResponse> => {
   try {
     const response = await fetch(`${apiURL}/login`, {
