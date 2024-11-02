@@ -1,11 +1,13 @@
 import { getUserResponse, signinResponse, userData } from "./types";
 
+const apiURL = "http://localhost:3001/api/v1/user";
+
 export const signinUser = async (
   email: string | null = "",
   password: string | null = ""
 ): Promise<signinResponse> => {
   try {
-    const response = await fetch("http://localhost:3001/api/v1/user/login", {
+    const response = await fetch(`${apiURL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +32,7 @@ export const signinUser = async (
 
 export const getUser = async (token: string): Promise<getUserResponse> => {
   try {
-    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+    const response = await fetch(`${apiURL}/profile`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -53,7 +55,7 @@ export const getUser = async (token: string): Promise<getUserResponse> => {
 
 export const updateUser = async (token: string, newFirstName: string, newLastName: string) => {
   try {
-    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+    const response = await fetch(`${apiURL}/profile`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
