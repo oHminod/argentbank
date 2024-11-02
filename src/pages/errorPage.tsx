@@ -14,8 +14,6 @@ type propsErrorType = {
 };
 
 const ErrorPage = ({ error }: propsErrorType) => {
-  console.log(error);
-
   if (typeof error === "string") {
     return (
       <main className="center-wrapper">
