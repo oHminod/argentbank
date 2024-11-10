@@ -48,40 +48,41 @@ public/
 src/
     components/
         layout/
-            footer.jsx
-            layout.jsx
-            navBar.jsx
-            navMenu.jsx
+            footer.tsx
+            layout.tsx
+            navBar.tsx
+            navMenu.tsx
     hooks/
-        useUserData.jsx
+        useUserData.tsx
     pages/
         homePage/
             components/
                 ...
-            homePage.jsx
+            homePage.tsx
         signinPage/
-            signinPage.jsx
+            signinPage.tsx
         userPage/
             components/
                 ...
-            userPage.jsx
-        errorPage.jsx
+            userPage.tsx
+        errorPage.tsx
     redux/
         actions/
-            authActions.js
+            authActions.ts
         reducers/
-            authReducer.js
-            index.js
+            authReducer.ts
+            index.ts
         store/
-            localStorage.js
-            selectors.js
-            store.js
+            localStorage.ts
+            selectors.ts
+            store.ts
     utils/
-        data-access-layer.js
-        data.js
-        routes.jsx
+        data-access-layer.ts
+        data.ts
+        routes.tsx
+        types.ts
     index.css
-    main.jsx
+    main.tsx
     vite-env.d.ts
 .gitignore
 .nvmrc
@@ -90,7 +91,7 @@ index.html
 package-lock.json
 package.json
 README.md
-vite.config.js
+vite.config.ts
 ```
 
 ## Dépendances principales
